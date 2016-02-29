@@ -1,9 +1,9 @@
-##################
-Bot Cards Exchange
-##################
+####################
+Bogus Stock Exchange
+####################
 
-This webapp is an "engine" for managing the trading of "bot cards",
-the excuse for ACIT4850 assignments in the Winter 2016 term..
+This webapp is an "engine" for managing the trading of "stocks",
+the excuse for COMP4711 assignments in the Winter 2016 term..
 
 *****************
 Programming Style
@@ -60,11 +60,11 @@ Resources
 Using the engine
 ****************
 
-The ACIT4850 students have been tasked with building bot card trader webapps,
-which will broker the purchase and sale of bot trading cards for their
+The COMP4711 students have been tasked with building stock trader webapps,
+which will broker the purchase and sale of stocks for their
 users.
 
-This webapp provides backend support for those trader webapps, and should
+This webapp provides backend support for those agent webapps, and should
 prove particularly useful for testing :-/
 
 ***************
