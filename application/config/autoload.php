@@ -138,5 +138,6 @@ $autoload['language'] = array();
   |	$autoload['model'] = array('first_model' => 'first');
  */
 
-$autoload['model'] = array('users', 'stocks', 'movement', 'transactions', 'certificates', 'players');
+$autoload['model'] = array('properties', 'engine', 'users', 'stocks', 
+	'movement', 'transactions', 'certificates', 'players', 'candidates');
 

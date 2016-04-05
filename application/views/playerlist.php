@@ -8,12 +8,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <div>
 	<h1>BSX Players</h1>
 	<table class="table">
-		<tr><th>Agent</th><th>Player</th><th>Cash</th></tr>
+		<tr><th>Agent</th><th>Player</th><th>Cash</th><th>Last round</th></tr>
 		{players}
 		<tr>
 			<td>{agent}</td>
 			<td>{player}</td>
 			<td>{cash}</td>
+			<td>{round}</td>
 		</tr>
 		{/players}
 	</table>

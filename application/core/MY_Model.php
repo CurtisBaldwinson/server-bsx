@@ -104,6 +104,18 @@ interface Active_record {
 	 * @return mixed The selected records, as an array of records
 	 */
 	function some($what, $which);
+
+	/**
+	 * Retrieve records from the beginning of a table.
+	 * @return array(object) The relevant records
+	 */
+	function head($count);
+
+	/**
+	 * Retrieve records from the end of a table.
+	 * @return array(object) The relevant records
+	 */
+	function tail($count);
 }
 
 /**
@@ -115,8 +127,8 @@ interface Active_record {
  */
 class MY_Model extends CI_Model implements Active_Record {
 
-	protected $_tableName;			// Which table is this a model for?
-	protected $_keyField;			 // name of the primary key field
+	protected $_tableName;   // Which table is this a model for?
+	protected $_keyField; // name of the primary key field
 
 //---------------------------------------------------------------------------
 //  Housekeeping methods
@@ -282,11 +294,32 @@ class MY_Model extends CI_Model implements Active_Record {
 			return null;
 	}
 
+	// Retrieve records from the beginning of a table.
+	function head($count = 10)
+	{
+		$this->db->limit(10);
+		$this->db->order_by($this->_keyField, 'asc');
+		$query = $this->db->get($this->_tableName);
+		return $query->result();
+	}
+
+	// Retrieve records from the end of a table.
+	function tail($count = 10)
+	{
+		$start = $this->db->count_all($this->_tableName) - 10;
+		if ($start < 0)
+			$start = 0;
+		$this->db->limit(10, $start);
+		$this->db->order_by($this->_keyField, 'asc');
+		$query = $this->db->get($this->_tableName);
+		return $query->result();
+	}
+
 }
 
 class MY_Model2 extends MY_Model {
 
-	protected $_keyField2;				 // second part of composite primary key
+	protected $_keyField2;  // second part of composite primary key
 
 	// Constructor
 

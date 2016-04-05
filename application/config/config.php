@@ -14,7 +14,24 @@ $config['menu_choices'] = array(
 		array('name' => 'Users', 'link' => '/community'),
 	)
 );
-		
+
+// game state descriptions
+$config['game_states'] = array(
+	'0' => 'closed',
+	'1' => 'setup',
+	'2' => 'ready',
+	'3' => 'open',
+	'4' => 'over'
+);
+
+// countdown for duration of a game state
+$config['state_countdowns'] = array(
+	'0' => 60,
+	'1' => 0,
+	'2' => 10,
+	'3' => 300,
+	'4' => 15
+);
 
 /*
   |--------------------------------------------------------------------------

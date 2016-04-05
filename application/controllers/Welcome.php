@@ -49,7 +49,7 @@ class Welcome extends Application {
 
 		$result = '';
 		$count = array();
-		foreach ($this->movement->all() as $record)
+		foreach ($this->movement->tail() as $record)
 		{
 			$result .= $this->parser->parse('1move',(array)$record,true);
 		}
@@ -57,7 +57,7 @@ class Welcome extends Application {
 
 		$result = '';
 		$count = array();
-		foreach ($this->transactions->all() as $record)
+		foreach ($this->transactions->tail() as $record)
 		{
 			$result .= $this->parser->parse('1trans',(array)$record,true);
 		}

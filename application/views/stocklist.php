@@ -11,7 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<tr><th>Code</th><th>Name</th><th>Category</th><th>Value</th></tr>
 		{stocks}
 		<tr>
-			<td>{code}</td>
+			<td><a href="/deck/show/{code}">{code}</a></td>
 			<td>{name}</td>
 			<td>{category}</td>
 			<td>{value}</td>
@@ -19,6 +19,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		{/stocks}
 	</table>
 	<div class="alert alert-info">The stocks shown above are those 
-		available for trading.
+		available for trading. Click on a stock's code to see its history.
 	</div>
 </div>
