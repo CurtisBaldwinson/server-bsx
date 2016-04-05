@@ -27,15 +27,16 @@ class Buy extends Application {
 		$stock = $this->input->post_get('stock');
 		$quantity = $this->input->post_get('quantity');
 
+//		echo 'team='.$team;
+//		$record= $this->users->get($team);
+//		echo $record->name;
 		// verify the agent
 		if (!$this->users->exists($team))
 			$this->booboo('Unrecognized agent');
 		$theteam = $this->users->get($team);
 		if ($token != $theteam->password)
 			$this->booboo('Bad agent token');
-		echo 'should not see this';
-		die();
-
+		
 		// Verify the player
 		$players = $this->players->some('agent', $team);
 		$found = -1;
@@ -62,8 +63,6 @@ class Buy extends Application {
 
 		if (!$this->stocks->exists($stock))
 			$this->booboo('Unrecognized stock');
-		if ($password != $this->properties->get('potd'))
-			$this->booboo('Incorrect password');
 
 		if ($quantity < 1)
 			$this->booboo('Nice try!');
@@ -77,9 +76,20 @@ class Buy extends Application {
 		// take the money out of their account
 		$one->cash -= $amount;
 		$this->players->update($one);
+		
+		// record the transaction
+		$trx = $this->transactions->create();
+		$trx->seq=0;
+		$trx->datetime = date(DATE_ATOM);
+		$trx->agent = $team;
+		$trx->player = $player;
+		$trx->stock = $stock;
+		$trx->trans = 'buy';
+		$trx->quantity = $quantity;
+		$this->transactions->add($trx);
 
 		$certificate = $this->certificates->create();
-		$certificate->token = dechex(rand(1000000));
+		$certificate->token = dechex(rand(0,1000000));
 		$certificate->stock = $stock;
 		$certificate->agent = $team;
 		$certificate->player = $player;
@@ -103,7 +113,7 @@ class Buy extends Application {
 		$this->output
 				->set_content_type('text/xml')
 				->set_output($response->asXML());
-		die();
+//		die();
 	}
 
 }

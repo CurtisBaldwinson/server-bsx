@@ -21,7 +21,7 @@ class Register extends Application {
 	function index()
 	{
 		// extract parameters
-		$team = $this->input->post_get('team');
+		$team = strtolower($this->input->post_get('team'));
 		$name = $this->input->post_get('name');
 		$password = $this->input->post_get('password');
 
@@ -43,8 +43,8 @@ class Register extends Application {
 		} else
 		{
 			// so far, so good. add the agent
-			$agent = new stdClass();
-			$agent->code = strtolower($team);
+			$agent = $this->users->create();
+			$agent->code = $team;
 			$agent->name = $name;
 			$agent->role = 'agent';
 			$agent->password = md5($team . $name);

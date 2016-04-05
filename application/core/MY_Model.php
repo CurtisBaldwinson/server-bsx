@@ -215,6 +215,16 @@ class MY_Model extends CI_Model implements Active_Record {
 		return $query->row();
 	}
 
+	// Retrieve the query object for a single record
+	function just1($key, $key2 = null)
+	{
+		$this->db->where($this->_keyField, $key);
+		$query = $this->db->get($this->_tableName);
+		if ($query->num_rows() < 1)
+			return null;
+		return $query;
+	}
+
 	// Update a record in the DB
 	function update($record)
 	{
@@ -268,6 +278,18 @@ class MY_Model extends CI_Model implements Active_Record {
 		return $query;
 	}
 
+	// Return the most recent records as a result set
+	function trailing($count = 10)
+	{
+		$start = $this->db->count_all($this->_tableName) - $count;
+		if ($start < 0)
+			$start = 0;
+		$this->db->limit($count, $start);
+		$this->db->order_by($this->_keyField, 'asc');
+		$query = $this->db->get($this->_tableName);
+		return $query;
+	}
+
 	// Return filtered records as an array of records
 	function some($what, $which)
 	{
@@ -306,10 +328,10 @@ class MY_Model extends CI_Model implements Active_Record {
 	// Retrieve records from the end of a table.
 	function tail($count = 10)
 	{
-		$start = $this->db->count_all($this->_tableName) - 10;
+		$start = $this->db->count_all($this->_tableName) - $count;
 		if ($start < 0)
 			$start = 0;
-		$this->db->limit(10, $start);
+		$this->db->limit($count, $start);
 		$this->db->order_by($this->_keyField, 'asc');
 		$query = $this->db->get($this->_tableName);
 		return $query->result();
