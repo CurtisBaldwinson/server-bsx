@@ -62,4 +62,17 @@ class Application extends CI_Controller {
 		$this->parser->parse('theme/template', $this->data);
 	}
 
+	// respond with an XML error message
+	function booboo($message = "Unknown erorr")
+	{
+		$response = new SimpleXMLElement('<error/>');
+		$response->message = $message;
+		// return it to the user
+		$this->output
+				->set_content_type('text/xml')
+				->set_output($response->asXML())
+				->_display();
+		exit;
+	}
+
 }

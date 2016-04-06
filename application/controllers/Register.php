@@ -60,16 +60,5 @@ class Register extends Application {
 				->set_output($response->asXML());
 	}
 
-	// respond with an error message
-	function booboo($message = "Unknown erorr")
-	{
-		$response = new SimpleXMLElement('<error/>');
-		$response->message = $message;
-		// return it to the user
-		$this->output
-				->set_content_type('text/xml')
-				->set_output($response->asXML());
-		die();
-	}
 
 }

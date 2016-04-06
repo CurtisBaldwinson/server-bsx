@@ -6,6 +6,14 @@ This webapp is an "engine" for managing the trading of "stocks",
 the excuse for COMP4711 assignments in the Winter 2016 term..
 
 *****************
+COMP4711 Students
+*****************
+
+If there are problems with the game engine, please raise an issue for each.
+I will find out them sooner than otherwise, and you will be notified when these
+are solved.
+
+*****************
 Programming Style
 *****************
 
