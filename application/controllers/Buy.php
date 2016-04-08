@@ -27,9 +27,13 @@ class Buy extends Application {
 		$stock = $this->input->post_get('stock');
 		$quantity = $this->input->post_get('quantity');
 
-//		echo 'team='.$team;
-//		$record= $this->users->get($team);
-//		echo $record->name;
+		// existence testing
+		if (empty($team)) $this->booboo('You are missing an agency code');
+		if (empty($token)) $this->booboo('Your need your agent token');
+		if (empty($player)) $this->booboo('Which player is this transaction for?');
+		if (empty($stock)) $this->booboo('Which stock are they looking to buy?');
+		if (empty($quantity)) $this->booboo('How much stock do they widh to buy?');
+		
 		// verify the agent
 		if (!$this->users->exists($team))
 			$this->booboo('Unrecognized agent');
@@ -94,6 +98,7 @@ class Buy extends Application {
 		$certificate->agent = $team;
 		$certificate->player = $player;
 		$certificate->amount = $quantity;
+		$certificate->datetime = date(DATE_ATOM);
 		$this->certificates->add($certificate);
 
 		$cert = new SimpleXMLElement('<certificate/>');

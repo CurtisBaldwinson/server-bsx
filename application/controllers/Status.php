@@ -26,7 +26,7 @@ class Status extends Application {
 		$state = $this->properties->get('state');
 		$scoop->state = $state;
 		$scoop->countdown = $this->properties->get('countdown');
-		
+
 		// game state descriptions
 		$game_states = array(
 			'0' => 'closed',
@@ -41,6 +41,7 @@ class Status extends Application {
 		$this->output
 				->set_content_type('text/xml')
 				->set_output($scoop->asXML());
+		
 	}
 
 }

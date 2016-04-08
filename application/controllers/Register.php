@@ -25,6 +25,11 @@ class Register extends Application {
 		$name = $this->input->post_get('name');
 		$password = $this->input->post_get('password');
 
+		// existence testing
+		if (empty($team)) $this->booboo('Need a team to register');
+		if (empty($name)) $this->booboo('Your team needs a name');
+		if (empty($password)) $this->booboo("You cannot register without today's password");
+		
 		// verify these
 		$set = substr($team, 0, 1);
 		if (!in_array($set, array('b', 'g', 'o', 's')))

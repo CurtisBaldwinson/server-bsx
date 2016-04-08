@@ -7,6 +7,12 @@ define('DATE_FORMAT', 'Y-m-d'); // FIXME
 // where does the data come from?
 define('DATAPATH', './_data/');
 
+// game state
+define('GAME_CLOSED',0);
+define('GAME_SETUP',1);
+define('GAME_READY',2);
+define('GAME_OPEN',3);
+define('GAME_OVER',4);
 
 /*
   |--------------------------------------------------------------------------

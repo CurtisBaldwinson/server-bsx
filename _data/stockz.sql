@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `candidates` (
   `code` varchar(4) NOT NULL DEFAULT '',
-  `name` varchar(10) DEFAULT NULL,
+  `name` varchar(32) DEFAULT NULL,
   `category` varchar(1) DEFAULT NULL,
   `value` int(3) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -40,29 +40,29 @@ CREATE TABLE IF NOT EXISTS `candidates` (
 INSERT INTO `candidates` (`code`, `name`, `category`, `value`) VALUES
 ('APPL', 'Apple', 'A', 100),
 ('BOND', 'Bonds', 'B', 66),
-('BP', 'Believable', 'C', 100),
+('BP', 'Believable Products', 'C', 100),
 ('COFF', 'Coffee', 'C', 100),
-('DHS', 'Donut Hole', 'C', 100),
-('DSC', 'Deathstar ', 'C', 100),
-('EBD', 'Environmen', 'C', 100),
-('FBN', 'Fly-by-Nig', 'C', 100),
-('GMC', 'General Mo', 'A', 100),
+('DHS', 'Donut Hole Syndicate', 'C', 100),
+('DSC', 'Deathstar Construction', 'C', 100),
+('EBD', 'Environmental Bio Diversity', 'C', 100),
+('FBN', 'Fly-by-Night Business Network', 'C', 100),
+('GMC', 'General Motors', 'A', 100),
 ('GOLD', 'Gold', 'B', 110),
 ('GOOG', 'Google', 'A', 100),
 ('GRAN', 'Grain', 'B', 113),
-('HD', 'Harley Dav', 'A', 100),
+('HD', 'Harley Davidson', 'A', 100),
 ('IBM', 'IBM', 'A', 100),
 ('IND', 'Industrial', 'B', 39),
-('IXP', 'Inter-plan', 'C', 100),
-('MLM', 'Moonlight ', 'C', 100),
+('IXP', 'Inter-planetary Exploration Project', 'C', 100),
+('MLM', 'Moonlight madness', 'C', 100),
 ('MSFT', 'Microsoft', 'A', 100),
 ('OIL', 'Oil', 'B', 52),
-('PONZ', 'Ponzi Sche', 'C', 100),
+('PONZ', 'Ponzi Schemes R Us', 'C', 100),
 ('RUN', 'Rich Uncle', 'C', 100),
-('SFA', 'Star Fleet', 'C', 100),
-('SMV', 'Smoke & Mi', 'C', 100),
-('SSO', 'Sleezy Sna', 'C', 100),
-('TECH', 'Tech', 'B', 37),
+('SFA', 'Star Fleet Academy', 'C', 100),
+('SMV', 'Smoke & Mirrors Ventures', 'C', 100),
+('SSO', 'Sleezy Snake Oil Sales', 'C', 100),
+('TECH', 'Technology', 'B', 37),
 ('TEL', 'Telus', 'A', 100);
 
 -- --------------------------------------------------------
