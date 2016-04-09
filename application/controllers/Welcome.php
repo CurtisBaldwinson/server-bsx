@@ -21,7 +21,36 @@ class Welcome extends Application {
 	function index()
 	{
 		$this->data['pagebody'] = 'dashboard';
+		$this->data['status_report'] = $this->engine->report();
+		$this->current_info();
+		$this->recent_activity();
 
+		$this->render();
+	}
+
+	// extract recent market activity
+	function recent_activity()
+	{
+		$result = '';
+		$count = array();
+		foreach ($this->movement->tail() as $record)
+		{
+			$result .= $this->parser->parse('1move', (array) $record, true);
+		}
+		$this->data['themoves'] = $result;
+
+		$result = '';
+		$count = array();
+		foreach ($this->transactions->tail() as $record)
+		{
+			$result .= $this->parser->parse('1trans', (array) $record, true);
+		}
+		$this->data['thetrans'] = $result;
+	}
+
+	// extract summary info
+	function current_info()
+	{
 		$result = '';
 		foreach ($this->users->all() as $record)
 		{
@@ -46,24 +75,6 @@ class Welcome extends Application {
 
 		$result = $this->certificates->size();
 		$this->data['thecerts'] = $result;
-
-		$result = '';
-		$count = array();
-		foreach ($this->movement->tail() as $record)
-		{
-			$result .= $this->parser->parse('1move',(array)$record,true);
-		}
-		$this->data['themoves'] = $result;
-
-		$result = '';
-		$count = array();
-		foreach ($this->transactions->tail() as $record)
-		{
-			$result .= $this->parser->parse('1trans',(array)$record,true);
-		}
-		$this->data['thetrans'] = $result;
-
-		$this->render();
 	}
 
 }

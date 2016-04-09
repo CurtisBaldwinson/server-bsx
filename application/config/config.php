@@ -24,6 +24,15 @@ $config['game_states'] = array(
 	'4' => 'over'
 );
 
+//// countdown for duration of a game state
+//$config['state_countdowns'] = array(
+//	'0' => 6,
+//	'1' => 0,
+//	'2' => 5,
+//	'3' => 10,
+//	'4' => 5
+//);
+
 // countdown for duration of a game state
 $config['state_countdowns'] = array(
 	'0' => 60,

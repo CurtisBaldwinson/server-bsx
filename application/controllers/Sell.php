@@ -74,8 +74,9 @@ class Sell extends Application {
 		$one = $this->players->get($found);
 		$one->round = $this->properties->get('round');
 		$this->players->update($one);
-		if ($goaway) $this->booboo('New players need to buy stock before they can sell any.');
-		
+		if ($goaway)
+			$this->booboo('New players need to buy stock before they can sell any.');
+
 		if (!$this->stocks->exists($stock))
 			$this->booboo('Unrecognized stock');
 
@@ -95,7 +96,7 @@ class Sell extends Application {
 		// record the transaction
 		$trx = $this->transactions->create();
 		$trx->seq = 0;
-		$trx->datetime = date(DATE_ATOM);
+		$trx->datetime = date(DATE_FORMAT);
 		$trx->agent = $team;
 		$trx->player = $player;
 		$trx->stock = $stock;
@@ -105,7 +106,6 @@ class Sell extends Application {
 
 		// void any consumed certificates
 		//FIXME
-		
 		// create a new certificate if any stock left over
 		$certificate = $this->certificates->create();
 		$certificate->token = dechex(rand(0, 1000000));
@@ -113,7 +113,7 @@ class Sell extends Application {
 		$certificate->agent = $team;
 		$certificate->player = $player;
 		$certificate->amount = $updatedquantity;
-		$certificate->datetime = date(DATE_ATOM);
+		$certificate->datetime = date(DATE_FORMAT);
 		$this->certificates->add($certificate);
 
 		$cert = new SimpleXMLElement('<certificate/>');

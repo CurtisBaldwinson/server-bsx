@@ -28,19 +28,24 @@ class Buy extends Application {
 		$quantity = $this->input->post_get('quantity');
 
 		// existence testing
-		if (empty($team)) $this->booboo('You are missing an agency code');
-		if (empty($token)) $this->booboo('Your need your agent token');
-		if (empty($player)) $this->booboo('Which player is this transaction for?');
-		if (empty($stock)) $this->booboo('Which stock are they looking to buy?');
-		if (empty($quantity)) $this->booboo('How much stock do they widh to buy?');
-		
+		if (empty($team))
+			$this->booboo('You are missing an agency code');
+		if (empty($token))
+			$this->booboo('Your need your agent token');
+		if (empty($player))
+			$this->booboo('Which player is this transaction for?');
+		if (empty($stock))
+			$this->booboo('Which stock are they looking to buy?');
+		if (empty($quantity))
+			$this->booboo('How much stock do they widh to buy?');
+
 		// verify the agent
 		if (!$this->users->exists($team))
 			$this->booboo('Unrecognized agent');
 		$theteam = $this->users->get($team);
 		if ($token != $theteam->password)
 			$this->booboo('Bad agent token');
-		
+
 		// Verify the player
 		$players = $this->players->some('agent', $team);
 		$found = -1;
@@ -80,11 +85,11 @@ class Buy extends Application {
 		// take the money out of their account
 		$one->cash -= $amount;
 		$this->players->update($one);
-		
+
 		// record the transaction
 		$trx = $this->transactions->create();
-		$trx->seq=0;
-		$trx->datetime = date(DATE_ATOM);
+		$trx->seq = 0;
+		$trx->datetime = date(DATE_FORMAT);
 		$trx->agent = $team;
 		$trx->player = $player;
 		$trx->stock = $stock;
@@ -93,12 +98,12 @@ class Buy extends Application {
 		$this->transactions->add($trx);
 
 		$certificate = $this->certificates->create();
-		$certificate->token = dechex(rand(0,1000000));
+		$certificate->token = dechex(rand(0, 1000000));
 		$certificate->stock = $stock;
 		$certificate->agent = $team;
 		$certificate->player = $player;
 		$certificate->amount = $quantity;
-		$certificate->datetime = date(DATE_ATOM);
+		$certificate->datetime = date(DATE_FORMAT);
 		$this->certificates->add($certificate);
 
 		$cert = new SimpleXMLElement('<certificate/>');
@@ -108,6 +113,5 @@ class Buy extends Application {
 				->set_content_type('text/xml')
 				->set_output($cert->asXML());
 	}
-
 
 }

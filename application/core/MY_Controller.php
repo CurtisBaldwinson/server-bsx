@@ -1,6 +1,5 @@
 <?php
 
-
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
@@ -11,8 +10,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class Application extends CI_Controller {
 
-	protected $data = array();	  // parameters for view components
-	protected $id;				  // identifier for our content
+	protected $data = array();   // parameters for view components
+	protected $id;	  // identifier for our content
 
 	/**
 	 * Constructor.
@@ -28,6 +27,8 @@ class Application extends CI_Controller {
 		$this->data['outline'] = 'http://bsx.jlparry.com';
 		$this->data['site'] = 'http://www.bcit.ca/study/outlines/20161047992';
 		$this->errors = array();
+
+		$this->engine->check();
 	}
 
 	/**
@@ -47,7 +48,7 @@ class Application extends CI_Controller {
 		$this->data['menubar'] = $this->parser->parse('theme/menubar', $choices, true);
 
 		$this->data['content'] = $this->parser->parse($this->data['pagebody'], $this->data, true);
-		
+
 		// convert Caboose output into view parameters
 		$this->data['caboose_styles'] = $this->caboose->styles();
 		$this->data['caboose_scripts'] = $this->caboose->scripts();

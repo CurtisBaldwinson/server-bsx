@@ -1,5 +1,4 @@
 <?php
-
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
@@ -14,6 +13,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<p>Active agents: {theagents}</p>
 	<p>Current stocks: {thestocks}</p>
 	<p>Stocks issued: {thecerts}</p>
+	<div>{status_report}</div>
 	<div class="row">
 		<div class="col-xs-6">
 			<h2>Recent Movements</h2>

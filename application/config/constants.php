@@ -2,17 +2,18 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-// default date format
-define('DATE_FORMAT', 'Y-m-d'); // FIXME
+// default date formats
+define('DATE_FORMAT', 'Y-m-d\TH:i:s');
+define('SHORT_DATE', 'H:i:s');
 // where does the data come from?
 define('DATAPATH', './_data/');
 
 // game state
-define('GAME_CLOSED',0);
-define('GAME_SETUP',1);
-define('GAME_READY',2);
-define('GAME_OPEN',3);
-define('GAME_OVER',4);
+define('GAME_CLOSED', 0);
+define('GAME_SETUP', 1);
+define('GAME_READY', 2);
+define('GAME_OPEN', 3);
+define('GAME_OVER', 4);
 
 /*
   |--------------------------------------------------------------------------

@@ -11,11 +11,11 @@ if (!defined('BASEPATH'))
 class Properties extends CI_Model {
 
 	// Fields
-	var $_data = array();		   // Container for the data from persistent
+	var $_data = array();	 // Container for the data from persistent
 	// storage (the database).
-	var $_tableName;				// name of the DB table holding the data
-	var $_keyField;				 // name of the primary key field
-	var $_valueField;			   // name of the data field
+	var $_tableName;	// name of the DB table holding the data
+	var $_keyField;	 // name of the primary key field
+	var $_valueField;	  // name of the data field
 
 	// Constructor
 
