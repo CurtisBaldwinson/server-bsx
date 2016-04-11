@@ -96,7 +96,7 @@ class Engine extends CI_Model {
 		return $CI->parser->parse('status_report', $parms, true);
 	}
 
-	// Pick the stocks to sue for the current round
+	// Pick the stocks to use for the current round
 	function pickStocks()
 	{
 		$CI = &get_instance();
@@ -108,8 +108,10 @@ class Engine extends CI_Model {
 		{
 			$pick = rand(0, $size);
 			$pickme = $pool->row($pick);
-			if (!$CI->stocks->exists($pickme->code))
+			if (!$CI->stocks->exists($pickme->code)) {
+				$pickme->value = 100; // all start at 100
 				$CI->stocks->add($pickme);
+			}
 		}
 	}
 
@@ -201,6 +203,7 @@ class Engine extends CI_Model {
 				break;
 			$this->handle($record);
 			$CI->queue->delete($record->seq);
+			$CI->movement->add($record);
 		}
 	}
 
@@ -210,6 +213,9 @@ class Engine extends CI_Model {
 		$CI = &get_instance();
 		$stock = $CI->stocks->get($record->code);
 
+		// make sure we found the stock in question
+		if ($stock == null) return;
+		
 		switch ($record->action)
 		{
 			case MOVE_UP:

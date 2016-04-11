@@ -81,6 +81,12 @@ interface Active_record {
 	 */
 	function highest();
 
+	/**
+	 * Return the first record
+	 * @return object The first record
+	 */
+	function first();
+
 //---------------------------------------------------------------------------
 //  Aggregate methods
 //---------------------------------------------------------------------------
@@ -319,6 +325,13 @@ class MY_Model extends CI_Model implements Active_Record {
 			return $result[0]->$key;
 		else
 			return null;
+	}
+
+	// Retrieve first record from a table.
+	function first()
+	{
+		$query = $this->db->get($this->_tableName,1,1);
+		return $query->result()[0];
 	}
 
 	// Retrieve records from the beginning of a table.

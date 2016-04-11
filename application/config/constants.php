@@ -23,7 +23,7 @@ define('STOCK_PENNY','C');
 // movements
 define('MOVE_UP','up');
 define('MOVE_DOWN','down');
-define('MOVE_DIVIDENT','div');
+define('MOVE_DIVIDEND','div');
 
 /*
   |--------------------------------------------------------------------------
