@@ -15,6 +15,16 @@ define('GAME_READY', 2);
 define('GAME_OPEN', 3);
 define('GAME_OVER', 4);
 
+// stock types
+define('STOCK_BLUECHIP','A');
+define('STOCK_NORMAL','B');
+define('STOCK_PENNY','C');
+
+// movements
+define('MOVE_UP','up');
+define('MOVE_DOWN','down');
+define('MOVE_DIVIDENT','div');
+
 /*
   |--------------------------------------------------------------------------
   | File and Directory Modes
