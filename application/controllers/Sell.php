@@ -83,13 +83,26 @@ class Sell extends Application {
 		if ($quantity < 1)
 			$this->booboo('Nice try!');
 
-		// finally, do they have the stuff to sell?
-		$thestock = $this->stocks->get($stock);
-		$amount = $thestock->value * $quantity;
-		if ($amount > $one->cash)
-			$this->booboo('You cannot afford to buy that');
+		// Check out the certificate(s) they are proferring
+		$offered = 0;
+		$offers = array();
+		foreach($certs as $atoken) {
+			$record = $this->certificates->get($atoken);
+			if ($record == null) $this->booboo('Bad certificate #: '.$atoken);
+			if ($record->agent != $team) $this->booboo('Not your certificate #: '.$atoken);
+			if ($record->player != $player) $this->booboo('Not player certificate #: '.$atoken);
+			$offers[] = $record;
+			$offered += $record->amount;
+		}
+
+		// Do they have enough of the stock to sell?
+		$updatedquantity = $offered - $quantity;
+		if ($updatedquantity < 0)
+			$this->booboo("You don't have that much stock to sell!");
 
 		// add the money to their account
+		$thestock = $this->stocks->get($stock);
+		$amount = $thestock->value * $quantity;
 		$one->cash += $amount;
 		$this->players->update($one);
 
@@ -105,23 +118,32 @@ class Sell extends Application {
 		$this->transactions->add($trx);
 
 		// void any consumed certificates
-		//FIXME
+		foreach($offers as $record)
+			$this->certificates->delete($record->token);
+		
 		// create a new certificate if any stock left over
-		$certificate = $this->certificates->create();
-		$certificate->token = dechex(rand(0, 1000000));
-		$certificate->stock = $stock;
-		$certificate->agent = $team;
-		$certificate->player = $player;
-		$certificate->amount = $updatedquantity;
-		$certificate->datetime = date(DATE_FORMAT);
-		$this->certificates->add($certificate);
+		if ($updatedquantity > 0)
+		{
+			$certificate = $this->certificates->create();
+			$certificate->token = dechex(rand(0, 1000000));
+			$certificate->stock = $stock;
+			$certificate->agent = $team;
+			$certificate->player = $player;
+			$certificate->amount = $updatedquantity;
+			$certificate->datetime = date(DATE_FORMAT);
+			$this->certificates->add($certificate);
 
-		$cert = new SimpleXMLElement('<certificate/>');
-		foreach (((array) $certificate) as $key => $value)
-			$cert->$key = $value;
-		$this->output
-				->set_content_type('text/xml')
-				->set_output($cert->asXML());
+			$cert = new SimpleXMLElement('<certificate/>');
+			foreach (((array) $certificate) as $key => $value)
+				$cert->$key = $value;
+			$this->output
+					->set_content_type('text/xml')
+					->set_output($cert->asXML());
+		} else {
+			// return an acknowledgement
+			$this->okiedokie('Stock sold and '.$amount.' added to your account.');
+		}
+		
 	}
 
 }
