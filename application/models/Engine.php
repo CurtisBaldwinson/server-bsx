@@ -199,6 +199,7 @@ class Engine extends CI_Model {
 		while (true)
 		{
 			$record = $CI->queue->first();
+			if ($record == null) break;
 			if ($record->datetime > $now)
 				break;
 			$this->handle($record);

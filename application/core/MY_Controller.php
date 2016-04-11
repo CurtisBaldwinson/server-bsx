@@ -76,4 +76,17 @@ class Application extends CI_Controller {
 		exit;
 	}
 
+	// respond with an informative XML message
+	function okiedokie($message = "Ok")
+	{
+		$response = new SimpleXMLElement('<result/>');
+		$response->message = $message;
+		// return it to the user
+		$this->output
+				->set_content_type('text/xml')
+				->set_output($response->asXML())
+				->_display();
+		exit;
+	}
+
 }
