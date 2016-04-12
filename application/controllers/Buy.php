@@ -89,7 +89,7 @@ class Buy extends Application {
 		// record the transaction
 		$trx = $this->transactions->create();
 		$trx->seq = 0;
-		$trx->datetime = date(DATE_FORMAT);
+		$trx->datetime = now();
 		$trx->agent = $team;
 		$trx->player = $player;
 		$trx->stock = $stock;
@@ -103,7 +103,7 @@ class Buy extends Application {
 		$certificate->agent = $team;
 		$certificate->player = $player;
 		$certificate->amount = $quantity;
-		$certificate->datetime = date(DATE_FORMAT);
+		$certificate->datetime = time();
 		$this->certificates->add($certificate);
 
 		$cert = new SimpleXMLElement('<certificate/>');
