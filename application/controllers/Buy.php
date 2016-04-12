@@ -47,15 +47,8 @@ class Buy extends Application {
 			$this->booboo('Bad agent token');
 
 		// Verify the player
-		$players = $this->players->some('agent', $team);
-		$found = -1;
-		foreach ($players as $one)
-		{
-			if (($one->agent == $team) && ($one->player == $player))
-				$found = $one->seq;
-		}
-
-		if ($found < 1)
+		$one = $this->players->find($team, $player);
+		if ($one == null)
 		{
 			// create new player record
 			$one = $this->players->create();
@@ -64,8 +57,8 @@ class Buy extends Application {
 			$one->cash = $this->properties->get('startcash');
 			$this->players->add($one);
 			$found = $this->players->size();
+			$one = $this->players->get($found);
 		}
-		$one = $this->players->get($found);
 		$one->round = $this->properties->get('round');
 		$this->players->update($one);
 

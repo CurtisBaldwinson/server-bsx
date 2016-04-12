@@ -51,17 +51,9 @@ class Sell extends Application {
 			$this->booboo('Bad agent token');
 
 		// Verify the player
-		$players = $this->players->some('agent', $team);
-		$found = -1;
-		foreach ($players as $one)
-		{
-			if (($one->agent == $team) && ($one->player == $player))
-				$found = $one->seq;
-		}
-
+		$one = $this->players->find($team, $player);
 		$goaway = false;
-		if ($found < 1)
-		{
+		if ($one == null) {
 			// create new player record
 			$one = $this->players->create();
 			$one->agent = $team;
@@ -70,8 +62,8 @@ class Sell extends Application {
 			$this->players->add($one);
 			$found = $this->players->size();
 			$goaway = true;
+			$one = $this->players->get($found);
 		}
-		$one = $this->players->get($found);
 		$one->round = $this->properties->get('round');
 		$this->players->update($one);
 		if ($goaway)
@@ -86,11 +78,15 @@ class Sell extends Application {
 		// Check out the certificate(s) they are proferring
 		$offered = 0;
 		$offers = array();
-		foreach($certs as $atoken) {
+		foreach ($certs as $atoken)
+		{
 			$record = $this->certificates->get($atoken);
-			if ($record == null) $this->booboo('Bad certificate #: '.$atoken);
-			if ($record->agent != $team) $this->booboo('Not your certificate #: '.$atoken);
-			if ($record->player != $player) $this->booboo('Not player certificate #: '.$atoken);
+			if ($record == null)
+				$this->booboo('Bad certificate #: ' . $atoken);
+			if ($record->agent != $team)
+				$this->booboo('Not your certificate #: ' . $atoken);
+			if ($record->player != $player)
+				$this->booboo('Not player certificate #: ' . $atoken);
 			$offers[] = $record;
 			$offered += $record->amount;
 		}
@@ -118,9 +114,9 @@ class Sell extends Application {
 		$this->transactions->add($trx);
 
 		// void any consumed certificates
-		foreach($offers as $record)
+		foreach ($offers as $record)
 			$this->certificates->delete($record->token);
-		
+
 		// create a new certificate if any stock left over
 		if ($updatedquantity > 0)
 		{
@@ -139,11 +135,11 @@ class Sell extends Application {
 			$this->output
 					->set_content_type('text/xml')
 					->set_output($cert->asXML());
-		} else {
+		} else
+		{
 			// return an acknowledgement
-			$this->okiedokie('Stock sold and '.$amount.' added to your account.');
+			$this->okiedokie('Stock sold and ' . $amount . ' added to your account.');
 		}
-		
 	}
 
 }
