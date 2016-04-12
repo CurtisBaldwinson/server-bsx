@@ -25,7 +25,10 @@ class Community extends Application {
 		// extract agent info
 		$users = $this->users->some('role', 'agent');
 		foreach($users as $user) {
-			$user->players = $this->players->some('agent',$user->code);
+			$players = $this->players->some('agent',$user->code);
+			$user->players = '';
+			foreach ($players as $one)
+				$user->players .= $one->player . ' ';
 		}
 		
 		$this->data['users'] = $users;
