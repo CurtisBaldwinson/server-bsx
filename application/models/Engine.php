@@ -204,6 +204,7 @@ class Engine extends CI_Model {
 				break;
 			$this->handle($record);
 			$CI->queue->delete($record->seq);
+			$record->seq=0;
 			$CI->movement->add($record);
 		}
 	}

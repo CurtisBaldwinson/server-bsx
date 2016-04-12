@@ -35,6 +35,7 @@ class Welcome extends Application {
 		$count = array();
 		foreach ($this->movement->tail() as $record)
 		{
+			$record->datetime = date(SHORT_DATE,$record->datetime);
 			$result .= $this->parser->parse('1move', (array) $record, true);
 		}
 		$this->data['themoves'] = $result;

@@ -21,7 +21,14 @@ class Community extends Application {
 	function index()
 	{
 		$this->data['pagebody'] = 'userlist';
-		$this->data['users'] = $this->users->some('role', 'agent');
+		
+		// extract agent info
+		$users = $this->users->some('role', 'agent');
+		foreach($users as $user) {
+			$user->players = $this->players->some('agent',$user->code);
+		}
+		
+		$this->data['users'] = $users;
 		$this->render();
 	}
 

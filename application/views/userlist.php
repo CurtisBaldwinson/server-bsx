@@ -8,11 +8,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <div>
 	<h1>Our Community</h1>
 	<table class="table">
-		<tr><th>Name</th><th>Role</th></tr>
+		<tr><th>Name</th><th>Role</th><th>Players</th></tr>
 		{users}
 		<tr>
+			<td>{code}</td>
 			<td>{name}</td>
 			<td>{role}</td>
+			<td>{players}</td>
 		</tr>
 		{/users}
 	</table>
