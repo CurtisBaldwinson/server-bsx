@@ -330,7 +330,9 @@ class MY_Model extends CI_Model implements Active_Record {
 	// Retrieve first record from a table.
 	function first()
 	{
-		$query = $this->db->get($this->_tableName,1,1);
+		if ($this->size() < 1)
+			return null;
+		$query = $this->db->get($this->_tableName, 1, 1);
 		return $query->result()[0];
 	}
 
