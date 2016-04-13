@@ -20,16 +20,25 @@ class Register extends Application {
 	 */
 	function index()
 	{
+		// state check
+		$state = $this->properties->get('state');
+		if ($state != GAME_OPEN)
+			if ($state != GAME_READY)
+				$this->booboo('You can only register while the market is "ready" or "open".');
+
 		// extract parameters
 		$team = strtolower($this->input->post_get('team'));
 		$name = $this->input->post_get('name');
 		$password = $this->input->post_get('password');
 
 		// existence testing
-		if (empty($team)) $this->booboo('Need a team to register');
-		if (empty($name)) $this->booboo('Your team needs a name');
-		if (empty($password)) $this->booboo("You cannot register without today's password");
-		
+		if (empty($team))
+			$this->booboo('Need a team to register');
+		if (empty($name))
+			$this->booboo('Your team needs a name');
+		if (empty($password))
+			$this->booboo("You cannot register without today's password");
+
 		// verify these
 		$set = substr($team, 0, 1);
 		if (!in_array($set, array('b', 'g', 'o', 's')))
@@ -64,6 +73,5 @@ class Register extends Application {
 				->set_content_type('text/xml')
 				->set_output($response->asXML());
 	}
-
 
 }

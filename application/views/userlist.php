@@ -8,7 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <div>
 	<h1>Our Community</h1>
 	<table class="table">
-		<tr><th>Name</th><th>Role</th><th>Players</th></tr>
+		<tr><th>Team</th><th>Name</th><th>Role</th><th>Players</th></tr>
 		{users}
 		<tr>
 			<td>{code}</td>

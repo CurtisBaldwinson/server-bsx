@@ -20,6 +20,11 @@ class Buy extends Application {
 	 */
 	function index()
 	{
+		// state check
+		$state = $this->properties->get('state');
+		if ($state != GAME_OPEN)
+			$this->booboo('You can only buy or sell while the market is "open".');
+
 		// extract parameters - what do they want to do?
 		$team = $this->input->post_get('team');
 		$token = $this->input->post_get('token');

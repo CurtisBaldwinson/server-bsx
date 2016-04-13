@@ -25,7 +25,7 @@ class Deck extends Application {
 		$this->render();
 	}
 
-	// Show the history fpr a stock
+	// Show the history for a stock
 	function show($code)
 	{
 		$this->data['stocks'] = array($this->stocks->get($code));
