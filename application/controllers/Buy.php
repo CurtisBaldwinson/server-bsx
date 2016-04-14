@@ -62,7 +62,7 @@ class Buy extends Application {
 			$one->cash = $this->properties->get('startcash');
 			$this->players->add($one);
 			$found = $this->players->size();
-			$one = $this->players->get($found);
+			$one = $this->players->find($team,$player);
 		}
 		$one->round = $this->properties->get('round');
 		$this->players->update($one);
@@ -83,11 +83,11 @@ class Buy extends Application {
 		// take the money out of their account
 		$one->cash -= $amount;
 		$this->players->update($one);
-
+		
 		// record the transaction
 		$trx = $this->transactions->create();
 		$trx->seq = 0;
-		$trx->datetime = now();
+		$trx->datetime = time();
 		$trx->agent = $team;
 		$trx->player = $player;
 		$trx->stock = $stock;
