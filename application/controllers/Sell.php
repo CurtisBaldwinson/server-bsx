@@ -32,7 +32,8 @@ class Sell extends Application {
 		$stock = $this->input->post_get('stock');
 		$quantity = $this->input->post_get('quantity');
 		$certificatex = $this->input->post_get('certificate');
-		$certs = explode($certificatex, ',');
+		$certs = // explode($certificatex, ',');
+				$this->input->post_get('certificate');
 
 		// existence testing
 		if (empty($team))
@@ -44,7 +45,7 @@ class Sell extends Application {
 		if (empty($stock))
 			$this->booboo('Which stock are they looking to sell?');
 		if (empty($quantity))
-			$this->booboo('How much stock do they widh to sell?');
+			$this->booboo('How much stock do they wish to sell?');
 		if (empty($certificatex))
 			$this->booboo('You need to surrender certificate(s)');
 
@@ -58,7 +59,8 @@ class Sell extends Application {
 		// Verify the player
 		$one = $this->players->find($team, $player);
 		$goaway = false;
-		if ($one == null) {
+		if ($one == null)
+		{
 			// create new player record
 			$one = $this->players->create();
 			$one->agent = $team;
@@ -67,7 +69,7 @@ class Sell extends Application {
 			$this->players->add($one);
 			$found = $this->players->size();
 			$goaway = true;
-			$one = $this->players->get($found);
+			$one = $this->players->find($team, $player);
 		}
 		$one->round = $this->properties->get('round');
 		$this->players->update($one);
@@ -114,7 +116,7 @@ class Sell extends Application {
 		$trx->agent = $team;
 		$trx->player = $player;
 		$trx->stock = $stock;
-		$trx->trans = 'buy';
+		$trx->trans = 'sell';
 		$trx->quantity = $quantity;
 		$this->transactions->add($trx);
 
