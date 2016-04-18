@@ -32,7 +32,7 @@ class Sell extends Application {
 		$stock = $this->input->post_get('stock');
 		$quantity = $this->input->post_get('quantity');
 		$certificatex = $this->input->post_get('certificate');
-		$certs = // explode(',', $certificatex);
+		$certs = explode(',', $certificatex);
 
 		// existence testing
 		if (empty($team))
